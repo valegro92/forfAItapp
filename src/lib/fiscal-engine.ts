@@ -360,13 +360,13 @@ export function generaScadenze(
       tipo: 'saldo_imposta',
       importo: saldoImpostaPrecedente,
       dataScadenza: `${anno}-06-30`,
-      pagato: saldoImpostaPrecedente === 0,
+      pagato: false,
     },
     {
       tipo: 'saldo_inps',
       importo: saldoInpsPrecedente,
       dataScadenza: `${anno}-06-30`,
-      pagato: saldoInpsPrecedente === 0,
+      pagato: false,
     },
     {
       tipo: 'acconto1_imposta',

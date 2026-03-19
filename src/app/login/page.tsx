@@ -43,17 +43,17 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f172a] to-[#1a1f3a] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-[#292524] px-4">
       <div className="w-full max-w-md">
         {/* Card */}
-        <div className="bg-[#1e293b] rounded-lg shadow-2xl p-8 border border-[#2dd4bf]/20">
+        <div className="bg-[#2D2D2D] rounded-xl shadow-2xl p-8 border border-[#454545]">
           {/* Logo and branding */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-[#2dd4bf] to-[#06b6d4] rounded-lg mb-4">
-              <span className="text-xl font-bold text-[#0f172a]">AI</span>
+            <div className="inline-flex items-center justify-center w-14 h-14 bg-[#2DD4A8] rounded-lg mb-4">
+              <span className="text-xl font-bold text-[#2D2D2D]">AI</span>
             </div>
             <h1 className="text-3xl font-bold text-white mb-2">ForfAIt</h1>
-            <p className="text-[#2dd4bf] text-sm font-medium">
+            <p className="text-[#2DD4A8] text-sm font-medium">
               La Cassetta degli AI-trezzi
             </p>
           </div>
@@ -62,7 +62,7 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email Input */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-[#A9A8A7] mb-2">
                 Inserisci la tua email di Substack
               </label>
               <input
@@ -72,13 +72,13 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="la-tua@email.it"
                 required
-                className="w-full px-4 py-2.5 bg-[#0f172a] border border-[#334155] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#2dd4bf] focus:ring-1 focus:ring-[#2dd4bf] transition"
+                className="w-full px-4 py-2.5 bg-[#292524] border border-[#454545] rounded-lg text-white placeholder-[#9CA3AF] focus:outline-none focus:border-[#2DD4A8] focus:ring-1 focus:ring-[#2DD4A8] transition"
               />
             </div>
 
             {/* Error Message */}
             {error && (
-              <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">
+              <div className="p-3 bg-[#F87171]/10 border border-[#F87171]/30 rounded-lg text-[#F87171] text-sm">
                 {error}
               </div>
             )}
@@ -87,22 +87,22 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading || !email}
-              className="w-full py-2.5 px-4 bg-gradient-to-r from-[#2dd4bf] to-[#06b6d4] text-[#0f172a] font-semibold rounded-lg hover:shadow-lg hover:shadow-[#2dd4bf]/50 disabled:opacity-50 disabled:cursor-not-allowed transition"
+              className="w-full py-2.5 px-4 bg-[#2DD4A8] text-[#2D2D2D] font-semibold rounded-lg hover:bg-[#5EEAD2] disabled:opacity-50 disabled:cursor-not-allowed transition"
             >
               {loading ? 'Verifico...' : 'Accedi'}
             </button>
           </form>
 
           {/* Footer */}
-          <div className="mt-8 pt-6 border-t border-[#334155]">
-            <p className="text-center text-sm text-gray-400 mb-3">
+          <div className="mt-8 pt-6 border-t border-[#454545]">
+            <p className="text-center text-sm text-[#A9A8A7] mb-3">
               Non sei ancora abbonato?
             </p>
             <a
               href="https://cassettadegliaitrezzi.it"
               target="_blank"
               rel="noopener noreferrer"
-              className="block text-center py-2 px-4 border border-[#2dd4bf]/40 text-[#2dd4bf] rounded-lg text-sm hover:bg-[#2dd4bf]/10 transition"
+              className="block text-center py-2 px-4 border border-[#0D9488] text-[#2DD4A8] rounded-lg text-sm hover:bg-[#0D9488]/20 transition"
             >
               Scopri L&apos;Officina →
             </a>

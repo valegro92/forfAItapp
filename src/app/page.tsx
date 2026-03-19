@@ -12,9 +12,9 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950" style={{ backgroundColor: '#0f172a' }}>
+    <div className="min-h-screen bg-slate-950" style={{ backgroundColor: '#292524' }}>
       {/* Header */}
-      <header className="fixed top-0 w-full z-50 backdrop-blur-md border-b border-slate-800" style={{ backgroundColor: 'rgba(15, 23, 42, 0.8)' }}>
+      <header className="fixed top-0 w-full z-50 backdrop-blur-md border-b border-slate-800" style={{ backgroundColor: 'rgba(41, 37, 36, 0.8)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center">
@@ -33,7 +33,7 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className={`text-center transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-block mb-6 px-4 py-2 rounded-full border border-slate-700" style={{ backgroundColor: '#1e293b' }}>
+          <div className="inline-block mb-6 px-4 py-2 rounded-full border border-slate-700" style={{ backgroundColor: '#2D2D2D' }}>
             <span className="text-sm text-slate-300">🧰 Uno strumento de La Cassetta degli AI-trezzi</span>
           </div>
           
@@ -49,7 +49,7 @@ export default function LandingPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
             <Link href="/login">
               <button className="px-8 py-3 rounded-lg font-semibold text-white flex items-center justify-center gap-2 transition-all hover:shadow-lg hover:shadow-teal-500/50" style={{
-                background: 'linear-gradient(135deg, #2dd4bf, #14b8a6)'
+                background: 'linear-gradient(135deg, #2DD4A8, #14b8a6)'
               }}>
                 Accedi al tuo cruscotto <ArrowRight size={20} />
               </button>
@@ -67,7 +67,7 @@ export default function LandingPage() {
             Il problema non sono le tasse.
           </h2>
           <p className="text-2xl text-center">
-            È <span style={{ color: '#2dd4bf' }} className="font-bold">non sapere quanto puoi spendere.</span>
+            È <span style={{ color: '#2DD4A8' }} className="font-bold">non sapere quanto puoi spendere.</span>
           </p>
         </div>
 
@@ -89,7 +89,7 @@ export default function LandingPage() {
               description: 'Saldo + acconti. E scopri che quei soldi non c\'erano.'
             }
           ].map((item, idx) => (
-            <div key={idx} className="p-6 rounded-xl border border-slate-700 transition-all hover:border-teal-500/50 hover:shadow-lg hover:shadow-teal-500/10" style={{ backgroundColor: '#1e293b' }}>
+            <div key={idx} className="p-6 rounded-xl border border-slate-700 transition-all hover:border-teal-500/50 hover:shadow-lg hover:shadow-teal-500/10" style={{ backgroundColor: '#2D2D2D' }}>
               <div className="text-4xl mb-4">{item.icon}</div>
               <h3 className="text-white font-semibold mb-2">{item.title}</h3>
               <p className="text-slate-400">{item.description}</p>
@@ -131,9 +131,9 @@ export default function LandingPage() {
           ].map((feature, idx) => {
             const Icon = feature.icon;
             return (
-              <div key={idx} className="p-8 rounded-xl border border-slate-700 transition-all hover:border-teal-500/50 hover:shadow-lg hover:shadow-teal-500/10" style={{ backgroundColor: '#1e293b' }}>
+              <div key={idx} className="p-8 rounded-xl border border-slate-700 transition-all hover:border-teal-500/50 hover:shadow-lg hover:shadow-teal-500/10" style={{ backgroundColor: '#2D2D2D' }}>
                 <div className="mb-4 inline-block p-3 rounded-lg" style={{ backgroundColor: 'rgba(45, 212, 191, 0.1)' }}>
-                  <Icon size={28} style={{ color: '#2dd4bf' }} />
+                  <Icon size={28} style={{ color: '#2DD4A8' }} />
                 </div>
                 <h3 className="text-white font-semibold text-lg mb-2">{feature.title}</h3>
                 <p className="text-slate-400">{feature.description}</p>
@@ -171,7 +171,7 @@ export default function LandingPage() {
           ].map((item, idx) => (
             <div key={idx} className="relative">
               <div className="text-center">
-                <div className="w-12 h-12 rounded-full mx-auto mb-6 flex items-center justify-center font-bold text-lg" style={{ backgroundColor: '#2dd4bf', color: '#0f172a' }}>
+                <div className="w-12 h-12 rounded-full mx-auto mb-6 flex items-center justify-center font-bold text-lg" style={{ backgroundColor: '#2DD4A8', color: '#292524' }}>
                   {item.step}
                 </div>
                 <h3 className="text-white font-semibold text-lg mb-2">{item.title}</h3>
@@ -190,8 +190,8 @@ export default function LandingPage() {
       {/* CTA Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="p-12 rounded-2xl border-2 relative overflow-hidden" style={{
-          backgroundColor: '#1e293b',
-          borderColor: '#2dd4bf',
+          backgroundColor: '#2D2D2D',
+          borderColor: '#2DD4A8',
           boxShadow: '0 0 30px rgba(45, 212, 191, 0.1)'
         }}>
           <div className="relative z-10 text-center">
@@ -200,7 +200,7 @@ export default function LandingPage() {
             </h2>
             <Link href="/login">
               <button className="px-8 py-3 rounded-lg font-semibold text-white flex items-center justify-center gap-2 mx-auto transition-all hover:shadow-lg hover:shadow-teal-500/50 mb-4" style={{
-                background: 'linear-gradient(135deg, #2dd4bf, #14b8a6)'
+                background: 'linear-gradient(135deg, #2DD4A8, #14b8a6)'
               }}>
                 Accedi al tuo cruscotto ForfAIt <ArrowRight size={20} />
               </button>

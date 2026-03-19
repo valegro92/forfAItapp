@@ -141,26 +141,26 @@ export default function Impostazioni({
       : 0;
 
   return (
-    <div className="min-h-screen bg-[#0f172a] text-white p-6">
+    <div className="min-h-screen bg-[#292524] text-white p-6">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-8 flex items-center gap-2">
-          <Building2 className="w-8 h-8 text-[#2dd4bf]" />
+          <Building2 className="w-8 h-8 text-[#2DD4A8]" />
           Impostazioni
         </h1>
 
         {successMessage && (
-          <div className="mb-4 p-4 bg-[#2dd4bf]/20 border border-[#2dd4bf] text-[#2dd4bf] rounded-lg animate-fade-out">
+          <div className="mb-4 p-4 bg-[#2DD4A8]/20 border border-[#2DD4A8] text-[#2DD4A8] rounded-lg animate-fade-out">
             {successMessage}
           </div>
         )}
 
-        <div className="flex gap-2 mb-6 border-b border-[#1e293b]">
+        <div className="flex gap-2 mb-6 border-b border-[#2D2D2D]">
           <button
             onClick={() => setActiveTab('fiscali')}
             className={`px-4 py-2 font-medium transition-colors ${
               activeTab === 'fiscali'
-                ? 'bg-[#2dd4bf] text-[#0f172a]'
-                : 'text-[#94a3b8] hover:text-white'
+                ? 'bg-[#2DD4A8] text-[#292524]'
+                : 'text-[#A9A8A7] hover:text-white'
             }`}
           >
             Parametri Fiscali
@@ -169,8 +169,8 @@ export default function Impostazioni({
             onClick={() => setActiveTab('prudenza')}
             className={`px-4 py-2 font-medium transition-colors ${
               activeTab === 'prudenza'
-                ? 'bg-[#2dd4bf] text-[#0f172a]'
-                : 'text-[#94a3b8] hover:text-white'
+                ? 'bg-[#2DD4A8] text-[#292524]'
+                : 'text-[#A9A8A7] hover:text-white'
             }`}
           >
             Prudenza
@@ -179,8 +179,8 @@ export default function Impostazioni({
             onClick={() => setActiveTab('riserva')}
             className={`px-4 py-2 font-medium transition-colors ${
               activeTab === 'riserva'
-                ? 'bg-[#2dd4bf] text-[#0f172a]'
-                : 'text-[#94a3b8] hover:text-white'
+                ? 'bg-[#2DD4A8] text-[#292524]'
+                : 'text-[#A9A8A7] hover:text-white'
             }`}
           >
             Riserva
@@ -189,8 +189,8 @@ export default function Impostazioni({
             onClick={() => setActiveTab('costi')}
             className={`px-4 py-2 font-medium transition-colors ${
               activeTab === 'costi'
-                ? 'bg-[#2dd4bf] text-[#0f172a]'
-                : 'text-[#94a3b8] hover:text-white'
+                ? 'bg-[#2DD4A8] text-[#292524]'
+                : 'text-[#A9A8A7] hover:text-white'
             }`}
           >
             Costi Fissi
@@ -200,7 +200,7 @@ export default function Impostazioni({
         {/* TAB 1: PARAMETRI FISCALI */}
         {activeTab === 'fiscali' && (
           <div className="space-y-6">
-            <div className="bg-[#1e293b] p-6 rounded-lg">
+            <div className="bg-[#2D2D2D] p-6 rounded-lg">
               <label className="block text-sm font-semibold mb-2">
                 Anno Apertura Partita IVA
               </label>
@@ -212,7 +212,7 @@ export default function Impostazioni({
                     annoAperturaPIVA: parseInt(e.target.value),
                   })
                 }
-                className="w-full px-4 py-2 bg-[#0f172a] border border-[#2dd4bf] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2dd4bf]"
+                className="w-full px-4 py-2 bg-[#292524] border border-[#2DD4A8] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2DD4A8]"
               >
                 {Array.from({ length: 17 }, (_, i) => 2010 + i).map((y) => (
                   <option key={y} value={y}>
@@ -220,14 +220,14 @@ export default function Impostazioni({
                   </option>
                 ))}
               </select>
-              <p className="text-[#94a3b8] text-sm mt-2">
+              <p className="text-[#A9A8A7] text-sm mt-2">
                 {isWithinFiveYears
                   ? `Hai aperto nel ${localProfile.annoAperturaPIVA}: sei al ${yearNumber}° anno su 5 del regime agevolato al 5%`
                   : 'Hai superato i 5 anni del regime agevolato'}
               </p>
             </div>
 
-            <div className="bg-[#1e293b] p-6 rounded-lg">
+            <div className="bg-[#2D2D2D] p-6 rounded-lg">
               <label className="block text-sm font-semibold mb-4">
                 Aliquota Imposta Sostitutiva
               </label>
@@ -241,8 +241,8 @@ export default function Impostazioni({
                   }
                   className={`w-full p-4 rounded border-2 text-left flex justify-between items-center transition-all ${
                     localProfile.aliquotaImposta === 5
-                      ? 'border-[#2dd4bf] bg-[#2dd4bf]/10'
-                      : 'border-[#334155] hover:border-[#2dd4bf]'
+                      ? 'border-[#2DD4A8] bg-[#2DD4A8]/10'
+                      : 'border-[#454545] hover:border-[#2DD4A8]'
                   }`}
                 >
                   <span>5% (primi 5 anni)</span>
@@ -261,8 +261,8 @@ export default function Impostazioni({
                   }
                   className={`w-full p-4 rounded border-2 text-left transition-all ${
                     localProfile.aliquotaImposta === 15
-                      ? 'border-[#2dd4bf] bg-[#2dd4bf]/10'
-                      : 'border-[#334155] hover:border-[#2dd4bf]'
+                      ? 'border-[#2DD4A8] bg-[#2DD4A8]/10'
+                      : 'border-[#454545] hover:border-[#2DD4A8]'
                   }`}
                 >
                   15% (ordinaria)
@@ -270,33 +270,33 @@ export default function Impostazioni({
               </div>
             </div>
 
-            <div className="bg-[#1e293b] p-6 rounded-lg">
+            <div className="bg-[#2D2D2D] p-6 rounded-lg">
               <label className="block text-sm font-semibold mb-2">
                 Codice ATECO
               </label>
               <div className="relative mb-4">
-                <Search className="absolute left-3 top-3 w-5 h-5 text-[#94a3b8]" />
+                <Search className="absolute left-3 top-3 w-5 h-5 text-[#A9A8A7]" />
                 <input
                   type="text"
                   placeholder="Cerca per codice o descrizione..."
                   value={attivoSearch}
                   onChange={(e) => setAttivoSearch(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-[#0f172a] border border-[#2dd4bf] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2dd4bf]"
+                  className="w-full pl-10 pr-4 py-2 bg-[#292524] border border-[#2DD4A8] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2DD4A8]"
                 />
               </div>
 
               {selectedAttivo && (
-                <div className="mb-4 p-3 bg-[#0f172a] border border-[#2dd4bf] rounded text-sm">
+                <div className="mb-4 p-3 bg-[#292524] border border-[#2DD4A8] rounded text-sm">
                   <div className="font-semibold">
                     {selectedAttivo.codice} - {selectedAttivo.descrizione}
                   </div>
-                  <div className="text-[#94a3b8] text-xs mt-1">
+                  <div className="text-[#A9A8A7] text-xs mt-1">
                     Coefficiente: {selectedAttivo.coefficiente}%
                   </div>
                 </div>
               )}
 
-              <div className="max-h-48 overflow-y-auto bg-[#0f172a] border border-[#334155] rounded">
+              <div className="max-h-48 overflow-y-auto bg-[#292524] border border-[#454545] rounded">
                 {attivoFiltered.map((a) => (
                   <button
                     key={a.codice}
@@ -308,26 +308,26 @@ export default function Impostazioni({
                       });
                       setAttivoSearch('');
                     }}
-                    className={`w-full px-4 py-2 text-left text-sm border-b border-[#334155] hover:bg-[#2dd4bf]/10 transition-colors ${
+                    className={`w-full px-4 py-2 text-left text-sm border-b border-[#454545] hover:bg-[#2DD4A8]/10 transition-colors ${
                       localProfile.codiceATECO === a.codice
-                        ? 'bg-[#2dd4bf]/20 border-l-2 border-l-[#2dd4bf]'
+                        ? 'bg-[#2DD4A8]/20 border-l-2 border-l-[#2DD4A8]'
                         : ''
                     }`}
                   >
                     <div className="font-semibold">{a.codice}</div>
-                    <div className="text-[#94a3b8] text-xs">
+                    <div className="text-[#A9A8A7] text-xs">
                       {a.descrizione}
                     </div>
                   </button>
                 ))}
               </div>
-              <p className="text-[#94a3b8] text-sm mt-3">
+              <p className="text-[#A9A8A7] text-sm mt-3">
                 Il coefficiente determina quale percentuale del fatturato è
                 considerata reddito imponibile
               </p>
             </div>
 
-            <div className="bg-[#1e293b] p-6 rounded-lg">
+            <div className="bg-[#2D2D2D] p-6 rounded-lg">
               <label className="block text-sm font-semibold mb-2">
                 Gestione Previdenziale
               </label>
@@ -343,7 +343,7 @@ export default function Impostazioni({
                       defaultRate || localProfile.aliquotaPrevidenziale,
                   });
                 }}
-                className="w-full px-4 py-2 bg-[#0f172a] border border-[#2dd4bf] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2dd4bf]"
+                className="w-full px-4 py-2 bg-[#292524] border border-[#2DD4A8] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2DD4A8]"
               >
                 {GESTIONI_PREVIDENZIALI.map((g) => (
                   <option key={g.id} value={g.id}>
@@ -353,7 +353,7 @@ export default function Impostazioni({
               </select>
             </div>
 
-            <div className="bg-[#1e293b] p-6 rounded-lg">
+            <div className="bg-[#2D2D2D] p-6 rounded-lg">
               <label className="block text-sm font-semibold mb-2">
                 Aliquota Previdenziale (%)
               </label>
@@ -369,25 +369,25 @@ export default function Impostazioni({
                 min="0"
                 max="100"
                 step="0.01"
-                className="w-full px-4 py-2 bg-[#0f172a] border border-[#2dd4bf] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2dd4bf]"
+                className="w-full px-4 py-2 bg-[#292524] border border-[#2DD4A8] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2DD4A8]"
               />
               {getDefaultPrevRate(localProfile.gestionePrevidenziale) && (
-                <p className="text-[#94a3b8] text-sm mt-2">
+                <p className="text-[#A9A8A7] text-sm mt-2">
                   Default per {GESTIONI_PREVIDENZIALI.find((g) => g.id === localProfile.gestionePrevidenziale)?.label}:{' '}
                   {getDefaultPrevRate(localProfile.gestionePrevidenziale)}%
                 </p>
               )}
               {!getDefaultPrevRate(localProfile.gestionePrevidenziale) && (
-                <p className="text-[#94a3b8] text-sm mt-2">
+                <p className="text-[#A9A8A7] text-sm mt-2">
                   Inserisci l'aliquota della tua cassa
                 </p>
               )}
             </div>
 
-            <div className="bg-[#1e293b] p-6 rounded-lg space-y-4">
+            <div className="bg-[#2D2D2D] p-6 rounded-lg space-y-4">
               <h3 className="text-sm font-semibold">Acconti Già Versati</h3>
               <div>
-                <label className="block text-xs text-[#94a3b8] mb-1">
+                <label className="block text-xs text-[#A9A8A7] mb-1">
                   Acconti imposta sostitutiva versati (€)
                 </label>
                 <input
@@ -399,11 +399,11 @@ export default function Impostazioni({
                       accontiImpostaVersati: parseFloat(e.target.value),
                     })
                   }
-                  className="w-full px-4 py-2 bg-[#0f172a] border border-[#2dd4bf] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2dd4bf]"
+                  className="w-full px-4 py-2 bg-[#292524] border border-[#2DD4A8] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2DD4A8]"
                 />
               </div>
               <div>
-                <label className="block text-xs text-[#94a3b8] mb-1">
+                <label className="block text-xs text-[#A9A8A7] mb-1">
                   Acconti previdenza versati (€)
                 </label>
                 <input
@@ -415,14 +415,14 @@ export default function Impostazioni({
                       accontiPrevidenzaVersati: parseFloat(e.target.value),
                     })
                   }
-                  className="w-full px-4 py-2 bg-[#0f172a] border border-[#2dd4bf] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2dd4bf]"
+                  className="w-full px-4 py-2 bg-[#292524] border border-[#2DD4A8] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2DD4A8]"
                 />
               </div>
             </div>
 
             <button
               onClick={handleSave}
-              className="w-full py-3 bg-gradient-to-r from-[#2dd4bf] to-[#1dd4bf] text-[#0f172a] font-semibold rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+              className="w-full py-3 bg-gradient-to-r from-[#2DD4A8] to-[#1dd4bf] text-[#292524] font-semibold rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
             >
               <Save className="w-5 h-5" />
               Salva Impostazioni Fiscali
@@ -433,7 +433,7 @@ export default function Impostazioni({
         {/* TAB 2: PRUDENZA */}
         {activeTab === 'prudenza' && (
           <div className="space-y-6">
-            <div className="bg-[#1e293b] p-6 rounded-lg">
+            <div className="bg-[#2D2D2D] p-6 rounded-lg">
               <label className="block text-sm font-semibold mb-4">
                 Livello di Prudenza
               </label>
@@ -468,12 +468,12 @@ export default function Impostazioni({
                     }}
                     className={`w-full p-4 rounded border-2 text-left transition-all ${
                       livelloPrudenza === preset.id
-                        ? 'border-[#2dd4bf] bg-[#2dd4bf]/10'
-                        : 'border-[#334155] hover:border-[#2dd4bf]'
-                    } ${preset.id === 'bilanciato' ? 'ring-2 ring-[#2dd4bf]' : ''}`}
+                        ? 'border-[#2DD4A8] bg-[#2DD4A8]/10'
+                        : 'border-[#454545] hover:border-[#2DD4A8]'
+                    } ${preset.id === 'bilanciato' ? 'ring-2 ring-[#2DD4A8]' : ''}`}
                   >
                     <div className="font-semibold">{preset.label}</div>
-                    <div className="text-sm text-[#94a3b8] mt-1">
+                    <div className="text-sm text-[#A9A8A7] mt-1">
                       {preset.values.cuscinetto}%, {preset.values.giorni}gg,
                       sugli {preset.values.baseCuscinetto}
                     </div>
@@ -482,7 +482,7 @@ export default function Impostazioni({
               </div>
             </div>
 
-            <div className="bg-[#1e293b] p-6 rounded-lg">
+            <div className="bg-[#2D2D2D] p-6 rounded-lg">
               <label className="block text-sm font-semibold mb-4">
                 Cuscinetto Anti-imprevisti: {localProfile.cuscinettoPercentuale}%
               </label>
@@ -498,11 +498,11 @@ export default function Impostazioni({
                     cuscinettoPercentuale: parseInt(e.target.value),
                   })
                 }
-                className="w-full h-2 bg-[#334155] rounded-lg appearance-none cursor-pointer accent-[#2dd4bf]"
+                className="w-full h-2 bg-[#454545] rounded-lg appearance-none cursor-pointer accent-[#2DD4A8]"
               />
             </div>
 
-            <div className="bg-[#1e293b] p-6 rounded-lg">
+            <div className="bg-[#2D2D2D] p-6 rounded-lg">
               <label className="block text-sm font-semibold mb-4">
                 Blocca Fondi Prima delle Scadenze: {localProfile.bloccaFondiGiorni} giorni
               </label>
@@ -518,11 +518,11 @@ export default function Impostazioni({
                     bloccaFondiGiorni: parseInt(e.target.value),
                   })
                 }
-                className="w-full h-2 bg-[#334155] rounded-lg appearance-none cursor-pointer accent-[#2dd4bf]"
+                className="w-full h-2 bg-[#454545] rounded-lg appearance-none cursor-pointer accent-[#2DD4A8]"
               />
             </div>
 
-            <div className="bg-[#1e293b] p-6 rounded-lg">
+            <div className="bg-[#2D2D2D] p-6 rounded-lg">
               <label className="block text-sm font-semibold mb-4">
                 Base di Calcolo Cuscinetto
               </label>
@@ -549,12 +549,12 @@ export default function Impostazioni({
                     }
                     className={`w-full p-4 rounded border-2 text-left transition-all ${
                       localProfile.baseCuscinetto === option.value
-                        ? 'border-[#2dd4bf] bg-[#2dd4bf]/10'
-                        : 'border-[#334155] hover:border-[#2dd4bf]'
+                        ? 'border-[#2DD4A8] bg-[#2DD4A8]/10'
+                        : 'border-[#454545] hover:border-[#2DD4A8]'
                     }`}
                   >
                     <div className="font-semibold">{option.label}</div>
-                    <div className="text-sm text-[#94a3b8] mt-1">{option.desc}</div>
+                    <div className="text-sm text-[#A9A8A7] mt-1">{option.desc}</div>
                   </button>
                 ))}
               </div>
@@ -562,7 +562,7 @@ export default function Impostazioni({
 
             <button
               onClick={handleSave}
-              className="w-full py-3 bg-gradient-to-r from-[#2dd4bf] to-[#1dd4bf] text-[#0f172a] font-semibold rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+              className="w-full py-3 bg-gradient-to-r from-[#2DD4A8] to-[#1dd4bf] text-[#292524] font-semibold rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
             >
               <Save className="w-5 h-5" />
               Salva Impostazioni Prudenza
@@ -573,7 +573,7 @@ export default function Impostazioni({
         {/* TAB 3: RISERVA */}
         {activeTab === 'riserva' && (
           <div className="space-y-6">
-            <div className="bg-[#1e293b] p-6 rounded-lg">
+            <div className="bg-[#2D2D2D] p-6 rounded-lg">
               <label className="block text-sm font-semibold mb-2">
                 Riserva Personale (€)
               </label>
@@ -588,15 +588,15 @@ export default function Impostazioni({
                 }
                 min="0"
                 step="100"
-                className="w-full px-4 py-2 bg-[#0f172a] border border-[#2dd4bf] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2dd4bf]"
+                className="w-full px-4 py-2 bg-[#292524] border border-[#2DD4A8] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2DD4A8]"
               />
-              <p className="text-[#94a3b8] text-sm mt-2">
+              <p className="text-[#A9A8A7] text-sm mt-2">
                 Importo fisso escluso dallo spendibile. Utile per fondo emergenza
                 o risparmio.
               </p>
             </div>
 
-            <div className="bg-[#1e293b] p-6 rounded-lg">
+            <div className="bg-[#2D2D2D] p-6 rounded-lg">
               <label className="block text-sm font-semibold mb-2">
                 Saldo Iniziale Conto Corrente (€)
               </label>
@@ -610,15 +610,15 @@ export default function Impostazioni({
                   })
                 }
                 step="100"
-                className="w-full px-4 py-2 bg-[#0f172a] border border-[#2dd4bf] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2dd4bf]"
+                className="w-full px-4 py-2 bg-[#292524] border border-[#2DD4A8] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2DD4A8]"
               />
-              <p className="text-[#94a3b8] text-sm mt-2">
+              <p className="text-[#A9A8A7] text-sm mt-2">
                 Il saldo del tuo conto a inizio anno. Viene sommato agli incassi
                 per calcolare il netto.
               </p>
-              <div className="mt-4 p-3 bg-[#0f172a] border border-[#2dd4bf]/30 rounded text-sm">
-                <span className="text-[#94a3b8]">Impatto sullo spendibile: </span>
-                <span className="text-[#2dd4bf] font-semibold">
+              <div className="mt-4 p-3 bg-[#292524] border border-[#2DD4A8]/30 rounded text-sm">
+                <span className="text-[#A9A8A7]">Impatto sullo spendibile: </span>
+                <span className="text-[#2DD4A8] font-semibold">
                   +€{impactSaldoIniziale.toLocaleString('it-IT', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
@@ -629,7 +629,7 @@ export default function Impostazioni({
 
             <button
               onClick={handleSave}
-              className="w-full py-3 bg-gradient-to-r from-[#2dd4bf] to-[#1dd4bf] text-[#0f172a] font-semibold rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+              className="w-full py-3 bg-gradient-to-r from-[#2DD4A8] to-[#1dd4bf] text-[#292524] font-semibold rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
             >
               <Save className="w-5 h-5" />
               Salva Impostazioni Riserva
@@ -641,15 +641,15 @@ export default function Impostazioni({
         {activeTab === 'costi' && (
           <div className="space-y-6">
             {localCosti.length > 0 && (
-              <div className="bg-[#1e293b] p-6 rounded-lg space-y-3">
+              <div className="bg-[#2D2D2D] p-6 rounded-lg space-y-3">
                 {localCosti.map((costo) => (
                   <div
                     key={costo.id}
-                    className="flex items-center justify-between bg-[#0f172a] p-4 rounded border border-[#334155]"
+                    className="flex items-center justify-between bg-[#292524] p-4 rounded border border-[#454545]"
                   >
                     <div className="flex-1">
                       <div className="font-semibold">{costo.nome}</div>
-                      <div className="text-sm text-[#94a3b8]">
+                      <div className="text-sm text-[#A9A8A7]">
                         €{costo.importo.toFixed(2)} • {costo.frequenza} • {costo.categoria}
                       </div>
                     </div>
@@ -664,7 +664,7 @@ export default function Impostazioni({
               </div>
             )}
 
-            <div className="bg-[#1e293b] p-6 rounded-lg">
+            <div className="bg-[#2D2D2D] p-6 rounded-lg">
               <h3 className="text-sm font-semibold mb-4">Aggiungi Costo Fisso</h3>
               <div className="space-y-3">
                 <input
@@ -674,7 +674,7 @@ export default function Impostazioni({
                   onChange={(e) =>
                     setNewCosto({ ...newCosto, nome: e.target.value })
                   }
-                  className="w-full px-4 py-2 bg-[#0f172a] border border-[#2dd4bf] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2dd4bf] placeholder-[#64748b]"
+                  className="w-full px-4 py-2 bg-[#292524] border border-[#2DD4A8] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2DD4A8] placeholder-[#9CA3AF]"
                 />
 
                 <input
@@ -686,7 +686,7 @@ export default function Impostazioni({
                   }
                   step="0.01"
                   min="0"
-                  className="w-full px-4 py-2 bg-[#0f172a] border border-[#2dd4bf] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2dd4bf] placeholder-[#64748b]"
+                  className="w-full px-4 py-2 bg-[#292524] border border-[#2DD4A8] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2DD4A8] placeholder-[#9CA3AF]"
                 />
 
                 <div className="flex gap-2">
@@ -696,8 +696,8 @@ export default function Impostazioni({
                       onClick={() => setNewCosto({ ...newCosto, frequenza: freq })}
                       className={`flex-1 py-2 rounded border transition-all ${
                         newCosto.frequenza === freq
-                          ? 'border-[#2dd4bf] bg-[#2dd4bf]/10'
-                          : 'border-[#334155] hover:border-[#2dd4bf]'
+                          ? 'border-[#2DD4A8] bg-[#2DD4A8]/10'
+                          : 'border-[#454545] hover:border-[#2DD4A8]'
                       }`}
                     >
                       {freq === 'mensile' ? 'Mensile' : 'Annuale'}
@@ -713,7 +713,7 @@ export default function Impostazioni({
                       categoria: e.target.value as 'tool' | 'commercialista' | 'altro',
                     })
                   }
-                  className="w-full px-4 py-2 bg-[#0f172a] border border-[#2dd4bf] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2dd4bf]"
+                  className="w-full px-4 py-2 bg-[#292524] border border-[#2DD4A8] rounded text-white focus:outline-none focus:ring-2 focus:ring-[#2DD4A8]"
                 >
                   <option value="tool">Tool/Software</option>
                   <option value="commercialista">Commercialista</option>
@@ -723,7 +723,7 @@ export default function Impostazioni({
                 <button
                   onClick={handleAddCosto}
                   disabled={!newCosto.nome || !newCosto.importo}
-                  className="w-full py-2 bg-[#2dd4bf] text-[#0f172a] font-semibold rounded hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full py-2 bg-[#2DD4A8] text-[#292524] font-semibold rounded hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   <Plus className="w-5 h-5" />
                   Aggiungi Costo
@@ -732,16 +732,16 @@ export default function Impostazioni({
             </div>
 
             {localCosti.length > 0 && (
-              <div className="bg-[#1e293b] p-6 rounded-lg border-2 border-[#2dd4bf]/30">
-                <div className="text-sm text-[#94a3b8]">
+              <div className="bg-[#2D2D2D] p-6 rounded-lg border-2 border-[#2DD4A8]/30">
+                <div className="text-sm text-[#A9A8A7]">
                   Costo mensile totale:{' '}
-                  <span className="text-[#2dd4bf] font-semibold">
+                  <span className="text-[#2DD4A8] font-semibold">
                     €{costoMensileTotale.toFixed(2)}
                   </span>
                 </div>
-                <div className="text-sm text-[#94a3b8] mt-1">
+                <div className="text-sm text-[#A9A8A7] mt-1">
                   Costo annuale:{' '}
-                  <span className="text-[#2dd4bf] font-semibold">
+                  <span className="text-[#2DD4A8] font-semibold">
                     €{costoAnnualeTotale.toFixed(2)}
                   </span>
                 </div>
@@ -750,7 +750,7 @@ export default function Impostazioni({
 
             <button
               onClick={handleSaveCosti}
-              className="w-full py-3 bg-gradient-to-r from-[#2dd4bf] to-[#1dd4bf] text-[#0f172a] font-semibold rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+              className="w-full py-3 bg-gradient-to-r from-[#2DD4A8] to-[#1dd4bf] text-[#292524] font-semibold rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
             >
               <Save className="w-5 h-5" />
               Salva Costi Fissi
