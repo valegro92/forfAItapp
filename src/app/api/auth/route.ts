@@ -1,19 +1,22 @@
 import { generateToken } from '@/lib/auth';
 import { NextRequest, NextResponse } from 'next/server';
+import { Redis } from '@upstash/redis';
 
-// In-memory rate limiting store: { email: { count: number; resetTime: number } }
+// Admin emails: sempre autorizzate senza Redis
+const ADMIN_EMAILS = ['ai@valentinogrossi.it'];
+
+// In-memory rate limiting store
 const rateLimitStore: Record<string, { count: number; resetTime: number }> = {};
 
-const RATE_LIMIT_MAX_ATTEMPTS = 5;
+const RATE_LIMIT_MAX_ATTEMPTS = 10;
 const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
 
-function checkRateLimit(email: string): boolean {
+function checkRateLimit(key: string): boolean {
   const now = Date.now();
-  const entry = rateLimitStore[email];
+  const entry = rateLimitStore[key];
 
   if (!entry || now > entry.resetTime) {
-    // Reset rate limit
-    rateLimitStore[email] = {
+    rateLimitStore[key] = {
       count: 1,
       resetTime: now + RATE_LIMIT_WINDOW_MS,
     };
@@ -30,65 +33,83 @@ function checkRateLimit(email: string): boolean {
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, code } = await request.json();
+    const { email } = await request.json();
 
     // Validate input
-    if (!email || !code) {
+    if (!email || typeof email !== 'string') {
       return NextResponse.json(
-        { success: false, message: 'Email e codice sono obbligatori' },
+        { success: false, message: 'Email obbligatoria' },
         { status: 400 }
       );
     }
 
-    // Check rate limit
-    if (!checkRateLimit(email)) {
+    const normalizedEmail = email.trim().toLowerCase();
+
+    // Check rate limit by IP
+    const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+    if (!checkRateLimit(clientIp)) {
       return NextResponse.json(
         { success: false, message: 'Troppi tentativi. Riprova tra un minuto.' },
         { status: 429 }
       );
     }
 
-    // Verify code
-    const monthlyCode = process.env.MONTHLY_CODE;
-    if (code !== monthlyCode) {
-      return NextResponse.json(
-        { success: false, message: 'Codice o email non valido' },
-        { status: 401 }
+    // Admin bypass
+    if (ADMIN_EMAILS.includes(normalizedEmail)) {
+      const token = await generateToken(normalizedEmail);
+      const response = NextResponse.json(
+        { success: true, token },
+        { status: 200 }
       );
+      response.cookies.set('forfait-token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 24 * 60 * 60,
+        path: '/',
+      });
+      return response;
     }
 
-    // Verify email
-    const allowedEmails = (process.env.ALLOWED_EMAILS || '').split(',').map(e => e.trim());
-    if (!allowedEmails.includes(email)) {
-      return NextResponse.json(
-        { success: false, message: 'Codice o email non valido' },
-        { status: 401 }
-      );
-    }
-
-    // Generate token
-    const token = await generateToken(email);
-
-    // Create response with token in cookie
-    const response = NextResponse.json(
-      { success: true, token },
-      { status: 200 }
-    );
-
-    // Set secure http-only cookie
-    response.cookies.set('forfait-token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 24 * 60 * 60, // 24 hours
-      path: '/',
+    // Check Upstash Redis for subscriber
+    const redis = new Redis({
+      url: process.env.KV_REST_API_URL || '',
+      token: process.env.KV_REST_API_TOKEN || '',
     });
 
-    return response;
+    const subscriberData = await redis.get(`subscriber:${normalizedEmail}`);
+
+    if (subscriberData) {
+      const data = typeof subscriberData === 'string' ? JSON.parse(subscriberData) : subscriberData;
+      const expiry = new Date(data.expiresAt);
+
+      if (expiry > new Date()) {
+        // Subscriber valido
+        const token = await generateToken(normalizedEmail);
+        const response = NextResponse.json(
+          { success: true, token },
+          { status: 200 }
+        );
+        response.cookies.set('forfait-token', token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          maxAge: 24 * 60 * 60,
+          path: '/',
+        });
+        return response;
+      }
+    }
+
+    // Non autorizzato
+    return NextResponse.json(
+      { success: false, message: "Email non trovata tra gli abbonati attivi de L'Officina" },
+      { status: 401 }
+    );
   } catch (error) {
     console.error('Auth error:', error);
     return NextResponse.json(
-      { success: false, message: 'Errore durante l\'autenticazione' },
+      { success: false, message: "Errore durante l'autenticazione" },
       { status: 500 }
     );
   }
