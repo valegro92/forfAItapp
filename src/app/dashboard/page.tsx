@@ -78,7 +78,21 @@ export default function DashboardPage() {
     }).format(value);
   }, []);
 
-  // Load data from localStorage on mount
+  // Sync data to server (Upstash Redis)
+  const syncToServer = useCallback(async (p: FiscalProfile | null, i: Incasso[], c: CostoFisso[]) => {
+    if (!p) return;
+    try {
+      await fetch('/api/userdata', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ profile: p, incassi: i, costi: c }),
+      });
+    } catch (err) {
+      console.error('Sync to server failed:', err);
+    }
+  }, []);
+
+  // Load data: try server first, fallback to localStorage
   useEffect(() => {
     const token = localStorage.getItem('forfait-token');
     if (!token) {
@@ -86,25 +100,47 @@ export default function DashboardPage() {
       return;
     }
 
-    const savedProfile = localStorage.getItem('forfait-profile');
-    const savedIncassi = localStorage.getItem('forfait-incassi');
-    const savedCosti = localStorage.getItem('forfait-costi');
+    (async () => {
+      try {
+        // Try loading from server
+        const res = await fetch('/api/userdata');
+        const json = await res.json();
 
-    if (savedProfile) {
-      const parsedProfile = JSON.parse(savedProfile);
-      setProfile(parsedProfile);
+        if (json.success && json.data?.profile) {
+          setProfile(json.data.profile);
+          setIncassi(json.data.incassi || []);
+          setCosti(json.data.costi || []);
+          // Aggiorna anche localStorage come cache
+          localStorage.setItem('forfait-profile', JSON.stringify(json.data.profile));
+          localStorage.setItem('forfait-incassi', JSON.stringify(json.data.incassi || []));
+          localStorage.setItem('forfait-costi', JSON.stringify(json.data.costi || []));
+          setShowOnboarding(false);
+          setLoading(false);
+          return;
+        }
+      } catch (err) {
+        console.warn('Server load failed, using localStorage:', err);
+      }
 
-      const parsedIncassi = savedIncassi ? JSON.parse(savedIncassi) : [];
-      const parsedCosti = savedCosti ? JSON.parse(savedCosti) : [];
+      // Fallback: localStorage
+      const savedProfile = localStorage.getItem('forfait-profile');
+      const savedIncassi = localStorage.getItem('forfait-incassi');
+      const savedCosti = localStorage.getItem('forfait-costi');
 
-      setIncassi(parsedIncassi);
-      setCosti(parsedCosti);
-      setShowOnboarding(false);
-    } else {
-      setShowOnboarding(true);
-    }
+      if (savedProfile) {
+        const parsedProfile = JSON.parse(savedProfile);
+        setProfile(parsedProfile);
+        const parsedIncassi = savedIncassi ? JSON.parse(savedIncassi) : [];
+        const parsedCosti = savedCosti ? JSON.parse(savedCosti) : [];
+        setIncassi(parsedIncassi);
+        setCosti(parsedCosti);
+        setShowOnboarding(false);
+      } else {
+        setShowOnboarding(true);
+      }
 
-    setLoading(false);
+      setLoading(false);
+    })();
   }, [router]);
 
   // Calculate fiscal data whenever profile or data changes
@@ -147,6 +183,7 @@ export default function DashboardPage() {
     localStorage.setItem('forfait-profile', JSON.stringify(newProfile));
     localStorage.setItem('forfait-incassi', JSON.stringify([]));
     localStorage.setItem('forfait-costi', JSON.stringify([]));
+    syncToServer(newProfile, [], []);
     setShowOnboarding(false);
   };
 
@@ -165,6 +202,7 @@ export default function DashboardPage() {
     const updatedIncassi = [...incassi, incasso];
     setIncassi(updatedIncassi);
     localStorage.setItem('forfait-incassi', JSON.stringify(updatedIncassi));
+    syncToServer(profile, updatedIncassi, costi);
     setNewIncasso({ importo: '', data: '', descrizione: '', cliente: '' });
   };
 
@@ -208,10 +246,9 @@ export default function DashboardPage() {
     }
   };
 
-  // Handle logout
+  // Handle logout — rimuovi solo token, i dati restano sul server
   const handleLogout = () => {
     localStorage.removeItem('forfait-token');
-    localStorage.removeItem('forfait-profile');
     document.cookie = 'forfait-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
     router.push('/login');
   };
@@ -961,10 +998,12 @@ export default function DashboardPage() {
             onSave={(updatedProfile) => {
               setProfile(updatedProfile);
               localStorage.setItem('forfait-profile', JSON.stringify(updatedProfile));
+              syncToServer(updatedProfile, incassi, costi);
             }}
             onSaveCosti={(updatedCosti) => {
               setCosti(updatedCosti);
               localStorage.setItem('forfait-costi', JSON.stringify(updatedCosti));
+              syncToServer(profile, incassi, updatedCosti);
             }}
           />
         )}
